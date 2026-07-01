@@ -1,0 +1,10 @@
+{:itonami.blueprint/id "cloud-itonami-isco-9211"
+ :itonami.blueprint/name "Independent Crop Farm Labour Practice"
+ :itonami.blueprint/isco-08 "9211"
+ :itonami.blueprint/domain :agriculture/crop-farm-labour
+ :itonami.blueprint/license "AGPL-3.0-or-later"
+ :itonami.blueprint/social-impact [:food-security :rural-livelihoods :worker-safety]
+ :itonami.blueprint/governor :crop-farm-labour-governor
+ :itonami.blueprint/robotics true
+ :itonami.blueprint/required-technologies [:robotics :telemetry :forms :audit-ledger :bpmn]
+ :itonami.blueprint/status :public-oss}
