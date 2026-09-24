@@ -1,5 +1,5 @@
 (ns cropfarm.actor-test
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.test :refer [deftest is testing]]
             [cropfarm.actor :as actor]
             [cropfarm.store :as store]))
 
