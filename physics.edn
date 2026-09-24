@@ -1,0 +1,33 @@
+;; What this vertical's robot physically does, declared for
+;; kotoba.robotics.process (kotoba-lang/robotics). `kbb -M:physics` runs it.
+;;
+;; README "Robotics premise": a field-labour-support robot performs planting
+;; assist, weeding and harvest-carrying tasks on a crop farm (ISCO 9211). Its
+;; physical work: carrying harvest crates along the field track to the
+;; collection point, and running water to the rows through a lay-flat
+;; irrigation hose.
+;;
+;; Every number without a cited source is marked `estimate` in its :basis.
+;; Replacing an estimate with a sourced value is this bot's growth work.
+{:physics/schema "itonami.physical-ai.spec.v1"
+ :repo "cloud-itonami/cloud-itonami-isco-9211"
+ :cases
+ [{:id :harvest-crates-to-collection
+   :kind :transport
+   :procedure "field robot carries stacked harvest crates 120 m along a soil track to the collection point"
+   :params {:mass-kg 90.0 :payload-kg 60.0 :distance-m 120.0 :v-max-mps 1.2 :a-max-mps2 0.5
+            :brake-decel-mps2 0.8 :drive-force-n 200.0 :crr 0.08
+            :cog-height-m 0.45 :support-half-length-m 0.35 :payload-cog-height-m 0.80
+            :max-time-s 1200.0}
+   :sweep {:param :payload-kg :values [20.0 40.0 60.0 80.0 100.0 120.0]}
+   :quantity :cycle-time-s
+   :limit {:max 150.0 :basis "estimate: one crate run per picker cycle so the pickers are never waiting for empty crates"}
+   :boundary {:lo 0.0 :hi 250.0}}
+  {:id :row-irrigation-hose
+   :kind :pipe-flow
+   :procedure "run irrigation water through 100 m of 50 mm lay-flat hose from the farm pump to the crop rows"
+   :params {:diameter-m 0.050 :length-m 100.0 :roughness-m 1.5e-5 :pump-efficiency 0.55 :elevation-m 1.0}
+   :sweep {:param :q-m3s :values [0.001 0.002 0.003 0.004 0.006]}
+   :quantity :head-m
+   :limit {:max 25.0 :basis "estimate: shut-off head of a small portable farm transfer pump (~2.5 bar)"}
+   :boundary {:lo 0.0005 :hi 0.010}}]}
